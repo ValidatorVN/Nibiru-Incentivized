@@ -15,7 +15,7 @@ Tải file cài đặt gốc dự án:
 
     curl -s https://get.nibiru.fi/@v0.19.2! | bash
     
-Thay <moniker name> = tên bạn muốn đặt
+Thay moniker name = tên bạn muốn đặt
 
     nibid init <moniker-name> --chain-id=nibiru-itn-1 --home $HOME/.nibid
     
