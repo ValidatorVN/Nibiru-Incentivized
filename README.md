@@ -2,10 +2,10 @@
 
 Guide Install Nibiru:
 
-Minimum hardware requirements
+Cấu hình đề xuất
 * 4CPU
 * 16GB RAM
-* 1000GB of disk space (SSD)
+* 300GB of disk space (SSD)
 
 1/ Bộ cài đặt:
 
