@@ -20,7 +20,7 @@ Tải file cài đặt gốc dự án:
     curl -s https://get.nibiru.fi/@v0.19.2! | bash
     
 2/ Thêm data cho node:
-
+    
     NETWORK=nibiru-itn-1
     curl -s https://networks.itn.nibiru.fi/$NETWORK/genesis > $HOME/.nibid/config/genesis.json
     
@@ -36,6 +36,8 @@ Tải file cài đặt gốc dự án:
     
 Tải bản snapshot:
 
+    nibid config keyring-backend test
+    nibid config chain-id nibiru-itn-1
     nibid tendermint unsafe-reset-all --home $HOME/.nibid --keep-addr-book
     
     SNAP_NAME=$(curl -s https://snapshots2-testnet.nodejumper.io/nibiru-testnet/info.json | jq -r .fileName)
