@@ -9,29 +9,17 @@ Cấu hình đề xuất
 
 1/ Bộ cài đặt:
 
-    sudo apt update && sudo apt upgrade --yes
+    sudo apt update && sudo apt upgrade -y
+    
+Cài đặt Package:
+
+    apt install make jq lz4 -y
     
 Tải file cài đặt gốc dự án:
 
     curl -s https://get.nibiru.fi/@v0.19.2! | bash
     
-Thay moniker = tên bạn muốn đặt
-
-    nibid init <moniker> --chain-id=nibiru-itn-1 --home $HOME/.nibid
-    
-2/ Câu lệnh tạo ví:
-
-    nibid keys add wallet
-    
- Câu lệnh khôi phục ví bằng 24 kí tự: 
- 
-    nibid keys add wallet --recover
-
-Lưu thông tin Validator:
-
-    cat $HOME/.nibid/config/priv_validator_key.json
-    
-3/ Thêm data cho node:
+2/ Thêm data cho node:
 
     NETWORK=nibiru-itn-1
     curl -s https://networks.itn.nibiru.fi/$NETWORK/genesis > $HOME/.nibid/config/genesis.json
@@ -45,15 +33,30 @@ Lưu thông tin Validator:
     sed -i 's|rpc_servers =.*|rpc_servers = "'$(curl -s https://networks.itn.nibiru.fi/$NETWORK/rpc_servers)'"|g' $HOME/.nibid/config/config.toml
     sed -i 's|trust_height =.*|trust_height = "'$(curl -s https://networks.itn.nibiru.fi/$NETWORK/trust_height)'"|g' $HOME/.nibid/config/config.toml
     sed -i 's|trust_hash =.*|trust_hash = "'$(curl -s https://networks.itn.nibiru.fi/$NETWORK/trust_hash)'"|g' $HOME/.nibid/config/config.toml
-
-Cài đặt Package:
-
-    apt install make jq lz4 -y
-
- Tải bản snapshot:
- 
+    
+Tải bản snapshot:
+    nibid tendermint unsafe-reset-all --home $HOME/.nibid --keep-addr-book
+    
     SNAP_NAME=$(curl -s https://snapshots2-testnet.nodejumper.io/nibiru-testnet/info.json | jq -r .fileName)
     curl "https://snapshots2-testnet.nodejumper.io/nibiru-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C $HOME/.nibid
+    
+2/ Câu lệnh tạo tên node & ví:
+
+Thay moniker = tên bạn muốn đặt
+
+    nibid init <moniker> --chain-id=nibiru-itn-1 --home $HOME/.nibid
+    
+Tạo ví:
+
+    nibid keys add wallet
+    
+ Câu lệnh khôi phục ví bằng 24 kí tự: 
+ 
+    nibid keys add wallet --recover
+
+Lưu thông tin Validator:
+
+    cat $HOME/.nibid/config/priv_validator_key.json
     
 4/ Tạo hệ thống:
 
