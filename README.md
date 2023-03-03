@@ -88,9 +88,9 @@ Lưu thông tin Validator:
     
 8/ Tạo validator: thoả mãn 2 điều kiện đã faucet & node đã sync xong. Thay chữ Hero -> tên bạn muốn đặt:
 
-Trỏ về folder nibiru:
+Trỏ về folder nibi:
 
-    cd nibiru
+    cd .nibid
 
 Chạy lệnh tạo validator:
 
