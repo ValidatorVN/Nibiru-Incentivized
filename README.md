@@ -106,7 +106,7 @@ Chạy lệnh tạo validator:
     --commission-max-change-rate=0.01 \
     --min-self-delegation=1 \
     --from=wallet \
-    --keyring-backend test
+    --keyring-backend test \
     --gas-prices=0.1unibi \
     --gas-adjustment=1.5 \
     --gas=auto \
