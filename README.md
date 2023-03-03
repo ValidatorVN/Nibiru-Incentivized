@@ -65,7 +65,7 @@ Cài đặt cosmosvisor bản mới nhất:
     mkdir -p $DAEMON_HOME/cosmovisor/genesis/bin
     mkdir -p $DAEMON_HOME/cosmovisor/upgrades
     cp $(which nibid) $DAEMON_HOME/cosmovisor/genesis/bin
-
+    cd $HOME
     
 4/ Tạo hệ thống:
 
@@ -83,7 +83,7 @@ Cài đặt cosmosvisor bản mới nhất:
     Restart=on-failure
     RestartSec=3
     Environment="DAEMON_NAME=nibid"
-    Environment="DAEMON_HOME=/home/<your_user>/.nibid"
+    Environment="DAEMON_HOME=/home/root/.nibid"
     Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=false"
     Environment="DAEMON_RESTART_AFTER_UPGRADE=true"
     Environment="DAEMON_LOG_BUFFER_SIZE=512"
