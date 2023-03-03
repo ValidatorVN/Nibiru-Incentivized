@@ -97,7 +97,7 @@ Chạy lệnh tạo validator:
     nibid tx staking create-validator \
     --amount=1000000unibi \
     --pubkey=$(nibid tendermint show-validator) \
-    --moniker="Hero-Node & Validator VietNam" \
+    --moniker="Node & Validator VietNam" \
     --identity=1342DBE69C23B662 \
     --details="https://t.me/NodeValidatorVietNam" \
     --chain-id=nibiru-itn-1 \
