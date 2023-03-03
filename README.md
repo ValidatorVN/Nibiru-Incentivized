@@ -71,6 +71,8 @@ Lưu thông tin Validator:
 
     apt install lz4 -y
     
+    apt install jq -y
+    
     SNAP_NAME=$(curl -s https://snapshots2-testnet.nodejumper.io/nibiru-testnet/info.json | jq -r .fileName)
     curl "https://snapshots2-testnet.nodejumper.io/nibiru-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C $HOME/.nibid
     
