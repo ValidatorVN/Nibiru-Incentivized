@@ -48,8 +48,12 @@ Lưu thông tin Validator:
 
 Cài đặt Package:
 
-    apt install make jq -y
+    apt install make jq lz4 -y
 
+ Tải bản snapshot:
+ 
+    SNAP_NAME=$(curl -s https://snapshots2-testnet.nodejumper.io/nibiru-testnet/info.json | jq -r .fileName)
+    curl "https://snapshots2-testnet.nodejumper.io/nibiru-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C $HOME/.nibid
     
 4/ Tạo hệ thống:
 
