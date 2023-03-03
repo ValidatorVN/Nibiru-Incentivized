@@ -15,9 +15,9 @@ Tải file cài đặt gốc dự án:
 
     curl -s https://get.nibiru.fi/@v0.19.2! | bash
     
-Thay moniker name = tên bạn muốn đặt
+Thay moniker = tên bạn muốn đặt
 
-    nibid init <moniker-name> --chain-id=nibiru-itn-1 --home $HOME/.nibid
+    nibid init <moniker> --chain-id=nibiru-itn-1 --home $HOME/.nibid
     
 2/ Câu lệnh tạo ví:
 
@@ -36,20 +36,16 @@ Lưu thông tin Validator:
     NETWORK=nibiru-itn-1
     curl -s https://networks.itn.nibiru.fi/$NETWORK/genesis > $HOME/.nibid/config/genesis.json
     
-    curl -s https://rpc.itn-1.nibiru.fi/genesis | jq -r .result.genesis > $HOME/.nibid/config/genesis.json
+    NETWORK=nibiru-itn-1
+    sed -i 's|seeds =.*|seeds = "'$(curl -s https://networks.itn.nibiru.fi/$NETWORK/seeds)'"|g' $HOME/.nibid/config/config.toml
+    sed -i 's/minimum-gas-prices =.*/minimum-gas-prices = "0.025unibi"/g' $HOME/.nibid/config/app.toml
     
     NETWORK=nibiru-itn-1
     sed -i 's|enable =.*|enable = true|g' $HOME/.nibid/config/config.toml
     sed -i 's|rpc_servers =.*|rpc_servers = "'$(curl -s https://networks.itn.nibiru.fi/$NETWORK/rpc_servers)'"|g' $HOME/.nibid/config/config.toml
     sed -i 's|trust_height =.*|trust_height = "'$(curl -s https://networks.itn.nibiru.fi/$NETWORK/trust_height)'"|g' $HOME/.nibid/config/config.toml
     sed -i 's|trust_hash =.*|trust_hash = "'$(curl -s https://networks.itn.nibiru.fi/$NETWORK/trust_hash)'"|g' $HOME/.nibid/config/config.toml
-    sed -i 's|^pruning *=.*|pruning = "custom"|g' $HOME/.nibid/config/app.toml
-    sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|g' $HOME/.nibid/config/app.toml
-    sed -i 's|^pruning-interval *=.*|pruning-interval = "10"|g' $HOME/.nibid/config/app.toml
-    sed -i 's|^snapshot-interval *=.*|snapshot-interval = 2000|g' $HOME/.nibid/config/app.toml
-    sed -i 's|seeds =.*|seeds = "'$(curl -s https://networks.itn.nibiru.fi/$NETWORK/seeds)'"|g' $HOME/.nibid/config/config.toml
-    sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001unibi"|g' $HOME/.nibid/config/app.toml
-    sed -i 's|^prometheus *=.*|prometheus = true|' $HOME/.nibid/config/config.toml
+
     
 4/ Tạo hệ thống:
 
@@ -67,16 +63,8 @@ Lưu thông tin Validator:
     WantedBy=multi-user.target
     EOF
 
-5/ Tải snapshot:
-
-    apt install lz4 -y
     
-    apt install jq -y
-    
-    SNAP_NAME=$(curl -s https://snapshots2-testnet.nodejumper.io/nibiru-testnet/info.json | jq -r .fileName)
-    curl "https://snapshots2-testnet.nodejumper.io/nibiru-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C $HOME/.nibid
-    
-6/ Chạy hệ thống & kiểm tra logs:
+5/ Chạy hệ thống & kiểm tra logs:
 
     sudo systemctl daemon-reload
     sudo systemctl enable nibid
@@ -84,11 +72,11 @@ Lưu thông tin Validator:
 
     sudo journalctl -u nibid -f --no-hostname -o cat
     
-7/ Kiểm tra trạng thái Sync:
+6/ Kiểm tra trạng thái Sync:
 
     nibid status 2>&1 | jq .SyncInfo.catching_up
     
-8/ Tạo validator: thoả mãn 2 điều kiện đã faucet & node đã sync xong. Thay chữ Hero -> tên bạn muốn đặt:
+7/ Tạo validator: thoả mãn 2 điều kiện đã faucet & node đã sync xong. Thay chữ Hero -> tên bạn muốn đặt:
 
 Trỏ về folder nibi:
 
