@@ -46,50 +46,24 @@ Lưu thông tin Validator:
     sed -i 's|trust_height =.*|trust_height = "'$(curl -s https://networks.itn.nibiru.fi/$NETWORK/trust_height)'"|g' $HOME/.nibid/config/config.toml
     sed -i 's|trust_hash =.*|trust_hash = "'$(curl -s https://networks.itn.nibiru.fi/$NETWORK/trust_hash)'"|g' $HOME/.nibid/config/config.toml
 
-4/ Cài đặt Package & Cosmosvisor:
+4/ Cài đặt Package:
 
     apt install golang-go -y
     apt install make -y
     apt install jq -y
     
-Cài đặt cosmosvisor bản mới nhất:
-
-    git clone https://github.com/cosmos/cosmos-sdk
-    cd cosmos-sdk
-    git checkout v0.42.7
-    make cosmovisor
-    
-Thiết lập các biến môi trường
-
-    cd $HOME
-    export DAEMON_NAME=nibid
-    export DAEMON_HOME=$HOME/.nibid
-    mkdir -p $DAEMON_HOME/cosmovisor/genesis/bin
-    mkdir -p $DAEMON_HOME/cosmovisor/upgrades
-    cp $(which nibid) $DAEMON_HOME/cosmovisor/genesis/bin
-    cd $HOME
-    
 4/ Tạo hệ thống:
 
-    sudo tee /etc/systemd/system/cosmovisor-nibiru.service<<EOF
+    sudo tee /etc/systemd/system/nibid.service > /dev/null << EOF
     [Unit]
-    Description=Cosmovisor for Nibiru Node
-    Requires=network-online.target
+    Description=Nibiru Node
     After=network-online.target
-
     [Service]
-    Type=exec
-    User=root
-    ExecStart=$(which cosmovisor) run start
+    User=$USER
+    ExecStart=$(which nibid) start
     Restart=on-failure
-    RestartSec=3
-    Environment="DAEMON_NAME=nibid"
-    Environment="DAEMON_HOME=$HOME/.nibid"
-    Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=false"
-    Environment="DAEMON_RESTART_AFTER_UPGRADE=true"
-    Environment="DAEMON_LOG_BUFFER_SIZE=512"
-    LimitNOFILE=65535
-
+    RestartSec=10
+    LimitNOFILE=10000
     [Install]
     WantedBy=multi-user.target
     EOF
@@ -98,10 +72,10 @@ Thiết lập các biến môi trường
 5/ Chạy hệ thống & kiểm tra logs:
 
     sudo systemctl daemon-reload
-    sudo systemctl enable cosmovisor-nibiru
-    sudo systemctl start cosmovisor-nibiru
+    sudo systemctl enable nibid
+    sudo systemctl start nibid
 
-    journalctl -fu cosmovisor-nibiru
+    sudo journalctl -u nibid -f --no-hostname -o cat
     
 6/ Kiểm tra trạng thái Sync:
 
