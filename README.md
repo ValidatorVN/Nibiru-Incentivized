@@ -80,7 +80,7 @@ Thiết lập các biến môi trường
     [Service]
     Type=exec
     User=root
-    ExecStart=/home/root/go/bin/cosmovisor run start --home /home/root/.nibid
+    ExecStart=$(which cosmovisor) run start
     Restart=on-failure
     RestartSec=3
     Environment="DAEMON_NAME=nibid"
