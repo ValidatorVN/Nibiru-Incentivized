@@ -88,6 +88,10 @@ Lưu thông tin Validator:
     
 8/ Tạo validator: thoả mãn 2 điều kiện đã faucet & node đã sync xong. Thay chữ Hero -> tên bạn muốn đặt:
 
+Trỏ về folder nibiru:
+
+    cd nibiru
+
     nibid tx staking create-validator \
     --amount=1000000unibi \
     --pubkey=$(nibid tendermint show-validator) \
@@ -100,6 +104,7 @@ Lưu thông tin Validator:
     --commission-max-change-rate=0.01 \
     --min-self-delegation=1 \
     --from=wallet \
+    --keyring-backend test
     --gas-prices=0.1unibi \
     --gas-adjustment=1.5 \
     --gas=auto \
