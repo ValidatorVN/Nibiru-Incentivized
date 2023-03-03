@@ -58,8 +58,10 @@ Cài đặt cosmosvisor bản mới nhất:
     cd cosmos-sdk
     git checkout v0.42.7
     make cosmovisor
-    cd $HOME
     
+Thiết lập các biến môi trường
+
+    cd $HOME
     export DAEMON_NAME=nibid
     export DAEMON_HOME=$HOME/.nibid
     mkdir -p $DAEMON_HOME/cosmovisor/genesis/bin
