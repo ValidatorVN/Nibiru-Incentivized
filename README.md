@@ -93,6 +93,28 @@ Cài đặt cosmosvisor bản mới nhất:
     WantedBy=multi-user.target
     EOF
     
+Hoặc sử dụng tạo service bằng systemd:
+
+    sudo tee /etc/systemd/system/nibid.service > /dev/null << EOF
+    [Unit]
+    Description=nibiru-testnet node service
+    After=network-online.target
+
+    [Service]
+    User=$USER
+    ExecStart=$(which cosmovisor) run start
+    Restart=on-failure
+    RestartSec=10
+    LimitNOFILE=65535
+    Environment="DAEMON_HOME=$HOME/.nibid"
+    Environment="DAEMON_NAME=nibid"
+    Environment="UNSAFE_SKIP_BACKUP=true"
+    Environment="PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:$HOME/.nibid/cosmovisor/current/bin"
+
+    [Install]
+    WantedBy=multi-user.target
+    EOF
+    
 5/ Chạy hệ thống & kiểm tra logs:
 
     sudo systemctl daemon-reload
