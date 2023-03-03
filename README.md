@@ -46,11 +46,11 @@ Lưu thông tin Validator:
     sed -i 's|trust_height =.*|trust_height = "'$(curl -s https://networks.itn.nibiru.fi/$NETWORK/trust_height)'"|g' $HOME/.nibid/config/config.toml
     sed -i 's|trust_hash =.*|trust_hash = "'$(curl -s https://networks.itn.nibiru.fi/$NETWORK/trust_hash)'"|g' $HOME/.nibid/config/config.toml
 
-4/ Cài đặt Cosmosvisor:
+4/ Cài đặt Package & Cosmosvisor:
 
     apt install golang-go -y
     apt install make -y
-    
+    apt install jq -y
     
 Cài đặt cosmosvisor bản mới nhất:
 
@@ -96,8 +96,8 @@ Cài đặt cosmosvisor bản mới nhất:
 5/ Chạy hệ thống & kiểm tra logs:
 
     sudo systemctl daemon-reload
-    sudo systemctl enable nibid
-    sudo systemctl start nibid
+    sudo systemctl enable cosmovisor-nibiru
+    sudo systemctl start cosmovisor-nibiru
 
     sudo journalctl -u nibid -f --no-hostname -o cat
     
