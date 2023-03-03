@@ -92,6 +92,8 @@ Trỏ về folder nibiru:
 
     cd nibiru
 
+Chạy lệnh tạo validator:
+
     nibid tx staking create-validator \
     --amount=1000000unibi \
     --pubkey=$(nibid tendermint show-validator) \
