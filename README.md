@@ -92,7 +92,7 @@ Lưu thông tin Validator:
     
     nibid status 2>&1 | jq .SyncInfo.latest_block_height
     
-7/ Tạo validator: thoả mãn 2 điều kiện đã faucet & node đã sync xong. Thay chữ Hero -> tên bạn muốn đặt:
+7/ Tạo validator: thoả mãn 2 điều kiện đã faucet & node đã sync xong. Thay chữ moniker= -> tên bạn muốn đặt:
 
 Trỏ về folder nibi:
 
