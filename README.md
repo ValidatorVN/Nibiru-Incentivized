@@ -46,23 +46,52 @@ Lưu thông tin Validator:
     sed -i 's|trust_height =.*|trust_height = "'$(curl -s https://networks.itn.nibiru.fi/$NETWORK/trust_height)'"|g' $HOME/.nibid/config/config.toml
     sed -i 's|trust_hash =.*|trust_hash = "'$(curl -s https://networks.itn.nibiru.fi/$NETWORK/trust_hash)'"|g' $HOME/.nibid/config/config.toml
 
+4/ Cài đặt Cosmosvisor:
+
+    apt install golang-go -y
+    apt install make -y
+    
+    
+Cài đặt cosmosvisor bản mới nhất:
+
+    git clone https://github.com/cosmos/cosmos-sdk
+    cd cosmos-sdk
+    git checkout v0.42.7
+    make cosmovisor
+    cd $HOME
+    
+    export DAEMON_NAME=nibid
+    export DAEMON_HOME=$HOME/.nibid
+    mkdir -p $DAEMON_HOME/cosmovisor/genesis/bin
+    mkdir -p $DAEMON_HOME/cosmovisor/upgrades
+    cp $(which nibid) $DAEMON_HOME/cosmovisor/genesis/bin
+
     
 4/ Tạo hệ thống:
 
-    sudo tee /etc/systemd/system/nibid.service > /dev/null << EOF
+    sudo tee /etc/systemd/system/cosmovisor-nibiru.service<<EOF
     [Unit]
-    Description=Nibiru Node
+    Description=Cosmovisor for Nibiru Node
+    Requires=network-online.target
     After=network-online.target
+
     [Service]
-    User=$USER
-    ExecStart=$(which nibid) start
+    Type=exec
+    User=root
+    Group=root
+    ExecStart=/home/root/go/bin/cosmovisor run start --home /home/root/.nibid
     Restart=on-failure
-    RestartSec=10
-    LimitNOFILE=10000
+    RestartSec=3
+    Environment="DAEMON_NAME=nibid"
+    Environment="DAEMON_HOME=/home/<your_user>/.nibid"
+    Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=false"
+    Environment="DAEMON_RESTART_AFTER_UPGRADE=true"
+    Environment="DAEMON_LOG_BUFFER_SIZE=512"
+    LimitNOFILE=65535
+
     [Install]
     WantedBy=multi-user.target
     EOF
-
     
 5/ Chạy hệ thống & kiểm tra logs:
 
