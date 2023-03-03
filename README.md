@@ -35,6 +35,7 @@ Tải file cài đặt gốc dự án:
     sed -i 's|trust_hash =.*|trust_hash = "'$(curl -s https://networks.itn.nibiru.fi/$NETWORK/trust_hash)'"|g' $HOME/.nibid/config/config.toml
     
 Tải bản snapshot:
+
     nibid tendermint unsafe-reset-all --home $HOME/.nibid --keep-addr-book
     
     SNAP_NAME=$(curl -s https://snapshots2-testnet.nodejumper.io/nibiru-testnet/info.json | jq -r .fileName)
