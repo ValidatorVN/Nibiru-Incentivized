@@ -84,7 +84,7 @@ Thiết lập các biến môi trường
     Restart=on-failure
     RestartSec=3
     Environment="DAEMON_NAME=nibid"
-    Environment="DAEMON_HOME=/home/root/.nibid"
+    Environment="DAEMON_HOME=$HOME/.nibid"
     Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=false"
     Environment="DAEMON_RESTART_AFTER_UPGRADE=true"
     Environment="DAEMON_LOG_BUFFER_SIZE=512"
@@ -101,7 +101,7 @@ Thiết lập các biến môi trường
     sudo systemctl enable cosmovisor-nibiru
     sudo systemctl start cosmovisor-nibiru
 
-    sudo journalctl -u nibid -f --no-hostname -o cat
+    journalctl -fu cosmovisor-nibiru
     
 6/ Kiểm tra trạng thái Sync:
 
