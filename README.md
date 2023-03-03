@@ -46,11 +46,10 @@ Lưu thông tin Validator:
     sed -i 's|trust_height =.*|trust_height = "'$(curl -s https://networks.itn.nibiru.fi/$NETWORK/trust_height)'"|g' $HOME/.nibid/config/config.toml
     sed -i 's|trust_hash =.*|trust_hash = "'$(curl -s https://networks.itn.nibiru.fi/$NETWORK/trust_hash)'"|g' $HOME/.nibid/config/config.toml
 
-4/ Cài đặt Package:
+Cài đặt Package:
 
-    apt install golang-go -y
-    apt install make -y
-    apt install jq -y
+    apt install make jq -y
+
     
 4/ Tạo hệ thống:
 
@@ -81,6 +80,10 @@ Lưu thông tin Validator:
 
     nibid status 2>&1 | jq .SyncInfo.catching_up
     
+ Kiểm tra số block đã sync hiện tại:
+    
+    nibid status 2>&1 | jq .SyncInfo.latest_block_height
+    
 7/ Tạo validator: thoả mãn 2 điều kiện đã faucet & node đã sync xong. Thay chữ Hero -> tên bạn muốn đặt:
 
 Trỏ về folder nibi:
@@ -107,5 +110,9 @@ Chạy lệnh tạo validator:
     --gas=auto \
     -y
     
+ Lệnh unjail:
+ 
+    nibid tx slashing unjail --from wallet --chain-id nibiru-itn-1 --gas-prices 0.1unibi --gas-adjustment 1.5 --gas auto -y 
+ 
   Chúc bạn thành công, thả tim thả Sao cho mình nhé!
     
