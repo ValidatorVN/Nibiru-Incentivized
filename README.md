@@ -99,10 +99,6 @@ Lưu thông tin Validator:
     
 7/ Tạo validator: thoả mãn 2 điều kiện đã faucet & node đã sync xong. Thay chữ moniker= -> tên bạn muốn đặt:
 
-Trỏ về folder nibi:
-
-    cd 
-
 Chạy lệnh tạo validator:
 
     nibid tx staking create-validator \
