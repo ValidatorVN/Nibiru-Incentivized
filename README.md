@@ -49,21 +49,8 @@ Tải bản snapshot:
     SNAP_NAME=$(curl -s https://snapshots2-testnet.nodejumper.io/nibiru-testnet/info.json | jq -r .fileName)
     curl "https://snapshots2-testnet.nodejumper.io/nibiru-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C $HOME/.nibid
     
-2/ Câu lệnh tạo ví:
     
-Tạo ví:
-
-    nibid keys add wallet
-    
- Câu lệnh khôi phục ví bằng 24 kí tự: 
- 
-    nibid keys add wallet --recover
-
-Lưu thông tin Validator:
-
-    cat $HOME/.nibid/config/priv_validator_key.json
-    
-4/ Tạo hệ thống:
+3/ Tạo hệ thống:
 
     sudo tee /etc/systemd/system/nibid.service > /dev/null << EOF
     [Unit]
@@ -79,14 +66,28 @@ Lưu thông tin Validator:
     WantedBy=multi-user.target
     EOF
     
-    
-5/ Chạy hệ thống & kiểm tra logs:
+4/ Chạy hệ thống & kiểm tra logs:
 
     sudo systemctl daemon-reload
     sudo systemctl enable nibid
     sudo systemctl start nibid
 
     sudo journalctl -u nibid -f --no-hostname -o cat
+    
+5/ Câu lệnh tạo ví:
+    
+Tạo ví:
+
+    nibid keys add wallet
+    
+ Câu lệnh khôi phục ví bằng 24 kí tự: 
+ 
+    nibid keys add wallet --recover
+
+Lưu thông tin Validator:
+
+    cat $HOME/.nibid/config/priv_validator_key.json
+    
     
 6/ Kiểm tra trạng thái Sync:
 
@@ -100,7 +101,7 @@ Lưu thông tin Validator:
 
 Trỏ về folder nibi:
 
-    cd .nibid
+    cd 
 
 Chạy lệnh tạo validator:
 
