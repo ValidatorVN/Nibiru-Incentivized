@@ -127,6 +127,10 @@ Chạy lệnh tạo validator:
  
     nibid tx staking delegate $(nibid keys show wallet --bech val -a) 1000000unibi --from wallet --chain-id nibiru-itn-1 --gas-prices 0.1unibi --gas-adjustment 1.5 --gas auto -y 
  
+ Lệnh unstake từ ví của bạn:
+ 
+    nibid tx staking unbond $(nibid keys show wallet --bech val -a) 1000000unibi --from wallet --chain-id nibiru-itn-1 --gas-prices 0.1unibi --gas-adjustment 1.5 --gas auto -y 
+ 
  Lệnh xoá node:
  
     sudo systemctl stop nibid && sudo systemctl disable nibid && sudo rm /etc/systemd/system/nibid.service && sudo systemctl daemon-reload && rm -rf $HOME/.nibid && rm -rf $HOME/nibiru && sudo rm $(which nibid) 
