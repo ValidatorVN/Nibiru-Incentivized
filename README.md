@@ -108,7 +108,7 @@ Chạy lệnh tạo validator:
     --amount=1000000unibi \
     --pubkey=$(nibid tendermint show-validator) \
     --moniker="Node & Validator VietNam" \
-    --identity=1342DBE69C23B662 \
+    --identity=6CB6AC3E672AAB9D \
     --details="https://t.me/NodeValidatorVietNam" \
     --chain-id=nibiru-itn-1 \
     --commission-rate=0.10 \
